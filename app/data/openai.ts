@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, CreateCompletionResponse, OpenAIApi } from "openai";
 import { ArxivFeedItem } from "./arxiv";
 import { Redis } from "@upstash/redis";
 
@@ -10,7 +10,7 @@ const redis = Redis.fromEnv();
 
 export async function getSummary(paper: ArxivFeedItem) {
     const cacheKey = `summary-cache:${paper.link}`;
-    const cached = await redis.get(cacheKey);
+    const cached = await redis.get<CreateCompletionResponse>(cacheKey);
 
     if (cached) {
         return cached;

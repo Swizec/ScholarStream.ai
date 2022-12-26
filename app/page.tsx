@@ -5,7 +5,7 @@ import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 
 export default async function Home() {
-    const feed = await arxiv.getFeed("cs");
+    const feed = await arxiv.getFeed("cs.SE");
     const papers = feed.items.slice(0, 10);
 
     const summaries = await Promise.all(papers.map(openai.getSummary));
