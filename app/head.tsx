@@ -1,9 +1,7 @@
-import "@/styles/globals.css";
-
 export default function Head() {
     return (
         <>
-            <title>Untitled</title>
+            <title>Experiment project</title>
             <meta charSet="UTF-8" />
             <meta
                 name="description"
