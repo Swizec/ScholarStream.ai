@@ -61,10 +61,10 @@ export async function getAvatar(
         }
 
         // openAI URLs expire in 1h, we save to Cloudinary
-        const { url } = await uploadImage(response.data.data[0].url);
+        const { secure_url } = await uploadImage(response.data.data[0].url);
 
-        await redis.set(cacheKey, url);
+        await redis.set(cacheKey, secure_url);
 
-        return url;
+        return secure_url;
     }
 }
