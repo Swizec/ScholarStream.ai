@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
@@ -26,6 +25,19 @@ const FeedItem = (props: {
     );
 };
 
+const Avatar = async (props: { name: string }) => {
+    const src = await openai.getAvatar(props.name, "256");
+
+    return (
+        <Image
+            src={src}
+            width={250}
+            height={250}
+            alt={`AI generated avatar of ${props.name}`}
+        />
+    );
+};
+
 export default async function Home() {
     const feed = await arxiv.getFeed("cs");
     const papers = feed.items.slice(0, 10);
@@ -38,6 +50,7 @@ export default async function Home() {
 
     return (
         <main className={styles.main}>
+            <Avatar name="Matej Zečević" />
             {summaries.map(([paper, summary]) => (
                 <FeedItem paper={paper} summary={summary} key={summary.id} />
             ))}
