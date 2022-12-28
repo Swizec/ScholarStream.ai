@@ -50,7 +50,7 @@ export default async function Home() {
 
     return (
         <main className={styles.main}>
-            <Avatar name="Matej Zečević" />
+            <Avatar name="Morgane Suel" />
             {summaries.map(([paper, summary]) => (
                 <FeedItem paper={paper} summary={summary} key={summary.id} />
             ))}

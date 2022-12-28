@@ -13,6 +13,12 @@ const nextConfig = {
                 pathname:
                     "/private/org-6t32pgO9hoQTUHGtr6cyRnQG/user-U4u31xrmnwsEljqBMUN07HJS/**",
             },
+            {
+                protocol: "https",
+                hostname: "res.cloudinary.com",
+                port: "",
+                pathname: "/dcyogyeng/**",
+            },
         ],
     },
 };

@@ -6,6 +6,7 @@ import {
 } from "openai";
 import { ArxivFeedItem } from "./arxiv";
 import { Redis } from "@upstash/redis";
+import { uploadImage } from "./cloudinary";
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -43,17 +44,27 @@ export async function getAvatar(
     name: string,
     size: "256" | "512" | "1024"
 ): Promise<string> {
-    const response = await openai.createImage({
-        prompt: `social media avatar, without text, for a researcher named ${name}`,
-        n: 1,
-        size: `${size}x${size}` as CreateImageRequestSizeEnum,
-    });
+    const cacheKey = `researcher-avatar:${name}:${size}`;
+    const cached = await redis.get<string>(cacheKey);
 
-    console.log(response.data);
+    if (cached) {
+        return cached;
+    } else {
+        const response = await openai.createImage({
+            prompt: `face closeup drawing, social media avatar, for a researcher named ${name}`,
+            n: 1,
+            size: `${size}x${size}` as CreateImageRequestSizeEnum,
+        });
 
-    if (!response.data.data[0].url) {
-        throw new Error("Image generation failed");
+        if (!response.data.data[0].url) {
+            throw new Error("Image generation failed");
+        }
+
+        // openAI URLs expire in 1h, we save to Cloudinary
+        const { url } = await uploadImage(response.data.data[0].url);
+
+        await redis.set(cacheKey, url);
+
+        return url;
     }
-
-    return response.data.data[0].url;
 }
