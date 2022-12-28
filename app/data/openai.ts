@@ -51,7 +51,7 @@ export async function getAvatar(
         return cached;
     } else {
         const response = await openai.createImage({
-            prompt: `face closeup drawing, social media avatar, for a researcher named ${name}`,
+            prompt: `face closeup, social media avatar, for a researcher named ${name}`,
             n: 1,
             size: `${size}x${size}` as CreateImageRequestSizeEnum,
         });
