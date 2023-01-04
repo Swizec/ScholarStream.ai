@@ -55,6 +55,7 @@ export async function getAvatar(
             n: 1,
             size: `${size}x${size}` as CreateImageRequestSizeEnum,
         });
+        console.log(response);
 
         if (!response.data.data[0].url) {
             throw new Error("Image generation failed");

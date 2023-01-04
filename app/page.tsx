@@ -9,12 +9,14 @@ const FeedItem = (props: {
     summary: CreateCompletionResponse;
 }) => {
     const { paper, summary } = props;
+    const creators = paper.creator.replace(/<[^>]*>?/gm, "");
 
     return (
         <div key={summary.id} style={{ marginBottom: "1em" }}>
+            <Avatars people={creators.split(",").map((s) => s.trim())} />
             <h3
                 dangerouslySetInnerHTML={{
-                    __html: paper.creator.replace(/<[^>]*>?/gm, ""),
+                    __html: creators,
                 }}
             />
             <p>{summary.choices[0].text}</p>
@@ -25,14 +27,30 @@ const FeedItem = (props: {
     );
 };
 
+const Avatars = async (props: { people: string[] }) => {
+    return (
+        <>
+            {props.people.map((name) => (
+                <Avatar name={name} key={name} />
+            ))}
+        </>
+    );
+};
+
 const Avatar = async (props: { name: string }) => {
-    const src = await openai.getAvatar(props.name, "256");
+    let src: string;
+    try {
+        src = await openai.getAvatar(props.name, "256");
+    } catch (e) {
+        console.error(e);
+        return <></>;
+    }
 
     return (
         <Image
             src={src}
-            width={250}
-            height={250}
+            width={50}
+            height={50}
             alt={`AI generated avatar of ${props.name}`}
         />
     );
@@ -40,7 +58,7 @@ const Avatar = async (props: { name: string }) => {
 
 export default async function Home() {
     const feed = await arxiv.getFeed("cs");
-    const papers = feed.items.slice(0, 10);
+    const papers = feed.items.slice(0, 5);
     console.log(feed.items.length);
 
     const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
@@ -50,7 +68,6 @@ export default async function Home() {
 
     return (
         <main className={styles.main}>
-            <Avatar name="Matej Zečević" />
             {summaries.map(([paper, summary]) => (
                 <FeedItem paper={paper} summary={summary} key={summary.id} />
             ))}

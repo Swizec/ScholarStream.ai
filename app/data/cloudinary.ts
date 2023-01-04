@@ -13,7 +13,5 @@ export async function uploadImage(url: string) {
         overwrite: true,
     });
 
-    console.log(result);
-
     return result;
 }
