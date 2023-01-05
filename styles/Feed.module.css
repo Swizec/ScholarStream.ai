@@ -1,3 +1,11 @@
+.feed {
+    padding: 2rem;
+}
+
+.feed h1 {
+    margin-bottom: 1rem;
+}
+
 .item {
     margin-bottom: 2.5rem;
 }
