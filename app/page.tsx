@@ -9,14 +9,20 @@ const FeedItem = (props: {
     summary: CreateCompletionResponse;
 }) => {
     const { paper, summary } = props;
-    const creators = paper.creator.replace(/<[^>]*>?/gm, "");
+    const creators = paper.creator
+        .replace(/<[^>]*>?/gm, "")
+        .split(",")
+        .map((s) => s.trim());
 
     return (
         <div key={summary.id} style={{ marginBottom: "1em" }}>
-            <Avatars people={creators.split(",").map((s) => s.trim())} />
+            {creators.map((name) => (
+                // @ts-expect-error Server Component
+                <Avatar name={name} key={name} />
+            ))}
             <h3
                 dangerouslySetInnerHTML={{
-                    __html: creators,
+                    __html: creators.join(", "),
                 }}
             />
             <p>{summary.choices[0].text}</p>
@@ -24,16 +30,6 @@ const FeedItem = (props: {
                 {paper.link}
             </a>
         </div>
-    );
-};
-
-const Avatars = async (props: { people: string[] }) => {
-    return (
-        <>
-            {props.people.map((name) => (
-                <Avatar name={name} key={name} />
-            ))}
-        </>
     );
 };
 
