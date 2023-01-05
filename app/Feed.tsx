@@ -35,9 +35,9 @@ const FeedItem = (props: {
     );
 };
 
-export const Feed = async (props: { topic: string }) => {
+export const Feed = async (props: { topic: string; count?: number }) => {
     const feed = await arxiv.getFeed(props.topic);
-    const papers = feed.items.slice(0, 10);
+    const papers = feed.items.slice(0, props.count || 10);
 
     const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
         await Promise.all(

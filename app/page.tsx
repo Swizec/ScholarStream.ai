@@ -71,7 +71,7 @@ export default async function Home() {
             </p>
 
             {/* @ts-expect-error Server Component */}
-            <Feed topic="econ" />
+            <Feed topic="cs.AI" count={5} />
         </main>
     );
 }
