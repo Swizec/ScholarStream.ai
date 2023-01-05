@@ -51,13 +51,14 @@ export async function getAvatar(
         return cached;
     } else {
         const response = await openai.createImage({
-            prompt: `face closeup, social media avatar, for a researcher named ${name}`,
+            prompt: `face closeup, social media avatar, for a researcher named "${name}" in a professional digital art drawing style`,
             n: 1,
             size: `${size}x${size}` as CreateImageRequestSizeEnum,
         });
-        console.log(response);
 
-        if (!response.data.data[0].url) {
+        if (!response.data.data[0]?.url) {
+            console.log(response.data);
+
             throw new Error("Image generation failed");
         }
 
