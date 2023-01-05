@@ -3,6 +3,7 @@ import styles from "@/styles/Home.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
+import { Suspense } from "react";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -17,8 +18,10 @@ const FeedItem = (props: {
     return (
         <div key={summary.id} style={{ marginBottom: "1em" }}>
             {creators.map((name) => (
-                // @ts-expect-error Server Component
-                <Avatar name={name} key={name} />
+                <Suspense fallback={<>L</>} key={name}>
+                    {/* @ts-expect-error Server Component */}
+                    <Avatar name={name} />
+                </Suspense>
             ))}
             <h3
                 dangerouslySetInnerHTML={{
