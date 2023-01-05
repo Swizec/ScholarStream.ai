@@ -30,6 +30,16 @@
     font-size: 1.2em;
 }
 
+.topicList a {
+    color: blue;
+    display: inline-block;
+    margin-right: 0.4rem;
+}
+
+.topicList a::after {
+    content: ',';
+}
+
 .code {
   font-weight: 700;
   font-family: var(--font-mono);

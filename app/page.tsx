@@ -1,60 +1,7 @@
 import styles from "@/styles/Home.module.css";
-import feedStyles from "@/styles/Feed.module.css";
-import * as arxiv from "./data/arxiv";
-import * as openai from "./data/openai";
-import { CreateCompletionResponse } from "openai";
-import { Avatar } from "./Avatar";
 import Image from "next/image";
-
-const FeedItem = (props: {
-    paper: arxiv.ArxivFeedItem;
-    summary: CreateCompletionResponse;
-}) => {
-    const { paper, summary } = props;
-    const creators = paper.creator
-        .replace(/<[^>]*>?/gm, "")
-        .split(",")
-        .map((s) => s.trim());
-
-    return (
-        <div key={summary.id} className={feedStyles.item}>
-            {creators.map((name) => (
-                <Avatar name={name} key={name} />
-            ))}
-            <h3
-                dangerouslySetInnerHTML={{
-                    __html: creators.join(", "),
-                }}
-            />
-            <p>{summary.choices[0].text}</p>
-            <div>
-                Full paper at 👉{" "}
-                <a href={paper.link} className={feedStyles.linkPaper}>
-                    {paper.title.split(/(\(|\. \()arXiv/)[0]}
-                </a>
-            </div>
-        </div>
-    );
-};
-
-const Feed = async (props: { topic: string }) => {
-    const feed = await arxiv.getFeed(props.topic);
-    const papers = feed.items.slice(0, 10);
-
-    const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
-        await Promise.all(
-            papers.map(async (paper) => [paper, await openai.getSummary(paper)])
-        );
-
-    return (
-        <div className={feedStyles.feed}>
-            <h1>Latest "{props.topic}" papers</h1>
-            {summaries.map(([paper, summary]) => (
-                <FeedItem paper={paper} summary={summary} key={summary.id} />
-            ))}
-        </div>
-    );
-};
+import Link from "next/link";
+import { Feed } from "./Feed";
 
 const Pitch = () => (
     <div className={styles.pitch}>
@@ -92,9 +39,36 @@ const Pitch = () => (
 );
 
 export default async function Home() {
+    const topics = [
+        { link: "astro-ph", label: "Astrophysics" },
+        { link: "cond-mat", label: "Condensed matter" },
+        { link: "gr-qc", label: "General Relativity and Quantum Cosmology" },
+        { link: "math-ph", label: "Mathematical Physics" },
+        { link: "nucl-ex", label: "Nuclear Experiment" },
+        { link: "nucl-th", label: "Nuclear Theory" },
+        { link: "physics", label: "Physics" },
+        { link: "quant-ph", label: "Quantum Physics" },
+        { link: "nlin", label: "Nonlinear Sciences" },
+        { link: "math", label: "Mathematics" },
+        { link: "cs", label: "Computer Science" },
+        { link: "q-bio", label: "Quantitative Biology" },
+        { link: "q-fin", label: "Quantitative Finance" },
+        { link: "stat", label: "Statistics" },
+        { link: "eess", label: "Elextrical Engineering and Systems Science" },
+        { link: "econ", label: "Economics" },
+    ];
     return (
         <main className={styles.main}>
             <Pitch />
+
+            <h2>Learn about:</h2>
+            <p className={styles.topicList}>
+                {topics.map(({ link, label }) => (
+                    <Link href={`/${link}`} key={link}>
+                        {label}
+                    </Link>
+                ))}
+            </p>
 
             {/* @ts-expect-error Server Component */}
             <Feed topic="econ" />

@@ -1,7 +1,7 @@
 export default function Head() {
     return (
         <>
-            <title>Experiment project</title>
+            <title>ScholarStream.ai</title>
             <meta charSet="UTF-8" />
             <meta
                 name="description"
