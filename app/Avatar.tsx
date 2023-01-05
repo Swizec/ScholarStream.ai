@@ -1,5 +1,6 @@
 import { cache, Suspense } from "react";
 import Image from "next/image";
+import feedStyles from "@/styles/Feed.module.css";
 import { ErrorBoundary } from "./ErrorBoundary";
 import * as openai from "./data/openai";
 
@@ -30,6 +31,7 @@ const AvatarImage = async (props: AvatarProps) => {
             width={50}
             height={50}
             alt={`AI generated avatar of ${props.name}`}
+            className={feedStyles.avatar}
         />
     );
 };
@@ -40,6 +42,7 @@ const AvatarPlaceholder = (props: AvatarProps) => (
         width={50}
         height={50}
         alt={`Generating avatar for ${props.name}`}
+        className={feedStyles.avatar}
     />
 );
 
@@ -49,5 +52,6 @@ const AvatarError = (props: AvatarProps) => (
         width={50}
         height={50}
         alt={`Error generating avatar for ${props.name}`}
+        className={feedStyles.avatar}
     />
 );

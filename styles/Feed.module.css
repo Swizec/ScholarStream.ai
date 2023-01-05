@@ -1,0 +1,74 @@
+.item {
+    margin-bottom: 2.5rem;
+}
+
+.item h3 {
+    margin-bottom: 0.75rem;
+}
+
+.item p {
+    margin-bottom: 0.5rem;
+}
+
+.linkPaper {
+    color: blue;
+    font-size: 1.1em;
+}
+
+.avatar {
+    border-radius: 100%;
+    margin-right: -20px;
+    position: relative;
+}
+
+/* reverse stack avatars */
+.avatar:nth-child(0) { z-index: 50; }
+.avatar:nth-child(1) { z-index: 49; }
+.avatar:nth-child(2) { z-index: 48; }
+.avatar:nth-child(3) { z-index: 47; }
+.avatar:nth-child(4) { z-index: 46; }
+.avatar:nth-child(5) { z-index: 45; }
+.avatar:nth-child(6) { z-index: 44; }
+.avatar:nth-child(7) { z-index: 43; }
+.avatar:nth-child(8) { z-index: 42; }
+.avatar:nth-child(9) { z-index: 41; }
+.avatar:nth-child(10) { z-index: 40; }
+.avatar:nth-child(11) { z-index: 39; }
+.avatar:nth-child(12) { z-index: 38; }
+.avatar:nth-child(13) { z-index: 37; }
+.avatar:nth-child(14) { z-index: 36; }
+.avatar:nth-child(15) { z-index: 35; }
+.avatar:nth-child(16) { z-index: 34; }
+.avatar:nth-child(17) { z-index: 33; }
+.avatar:nth-child(18) { z-index: 32; }
+.avatar:nth-child(19) { z-index: 31; }
+.avatar:nth-child(20) { z-index: 30; }
+.avatar:nth-child(21) { z-index: 29; }
+.avatar:nth-child(22) { z-index: 28; }
+.avatar:nth-child(23) { z-index: 27; }
+.avatar:nth-child(24) { z-index: 26; }
+.avatar:nth-child(25) { z-index: 25; }
+.avatar:nth-child(26) { z-index: 24; }
+.avatar:nth-child(27) { z-index: 23; }
+.avatar:nth-child(28) { z-index: 22; }
+.avatar:nth-child(29) { z-index: 21; }
+.avatar:nth-child(30) { z-index: 20; }
+.avatar:nth-child(31) { z-index: 19; }
+.avatar:nth-child(32) { z-index: 18; }
+.avatar:nth-child(33) { z-index: 17; }
+.avatar:nth-child(34) { z-index: 16; }
+.avatar:nth-child(35) { z-index: 15; }
+.avatar:nth-child(36) { z-index: 14; }
+.avatar:nth-child(37) { z-index: 13; }
+.avatar:nth-child(38) { z-index: 12; }
+.avatar:nth-child(39) { z-index: 11; }
+.avatar:nth-child(40) { z-index: 10; }
+.avatar:nth-child(41) { z-index: 9; }
+.avatar:nth-child(42) { z-index: 8; }
+.avatar:nth-child(43) { z-index: 7; }
+.avatar:nth-child(44) { z-index: 6; }
+.avatar:nth-child(45) { z-index: 5; }
+.avatar:nth-child(46) { z-index: 4; }
+.avatar:nth-child(47) { z-index: 3; }
+.avatar:nth-child(48) { z-index: 2; }
+.avatar:nth-child(49) { z-index: 1; }

@@ -1,4 +1,5 @@
 import styles from "@/styles/Home.module.css";
+import feedStyles from "@/styles/Feed.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
@@ -15,7 +16,7 @@ const FeedItem = (props: {
         .map((s) => s.trim());
 
     return (
-        <div key={summary.id} style={{ marginBottom: "1em" }}>
+        <div key={summary.id} className={feedStyles.item}>
             {creators.map((name) => (
                 <Avatar name={name} key={name} />
             ))}
@@ -25,15 +26,18 @@ const FeedItem = (props: {
                 }}
             />
             <p>{summary.choices[0].text}</p>
-            <a href={paper.link} style={{ color: "blue" }}>
-                {paper.link}
-            </a>
+            <div>
+                Full paper at 👉{" "}
+                <a href={paper.link} className={feedStyles.linkPaper}>
+                    {paper.title.split(/(\(|\. \()arXiv/)[0]}
+                </a>
+            </div>
         </div>
     );
 };
 
 export default async function Home() {
-    const feed = await arxiv.getFeed("cs");
+    const feed = await arxiv.getFeed("econ");
     const papers = feed.items.slice(0, 10);
 
     const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
