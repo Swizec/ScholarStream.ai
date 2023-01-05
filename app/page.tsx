@@ -1,10 +1,8 @@
-import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
-import { cache, Suspense } from "react";
-import { ErrorBoundary } from "./ErrorBoundary";
+import { Avatar } from "./Avatar";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -19,15 +17,7 @@ const FeedItem = (props: {
     return (
         <div key={summary.id} style={{ marginBottom: "1em" }}>
             {creators.map((name) => (
-                <Suspense
-                    fallback={<AvatarPlaceholder name={name} />}
-                    key={name}
-                >
-                    <ErrorBoundary fallback={<AvatarPlaceholder name={name} />}>
-                        {/* @ts-expect-error Server Component */}
-                        <Avatar name={name} />
-                    </ErrorBoundary>
-                </Suspense>
+                <Avatar name={name} key={name} />
             ))}
             <h3
                 dangerouslySetInnerHTML={{
@@ -42,34 +32,9 @@ const FeedItem = (props: {
     );
 };
 
-const Avatar = async (props: { name: string }) => {
-    let src = await cache(async (name: string) =>
-        openai.getAvatar(name, "256")
-    )(props.name);
-
-    return (
-        <Image
-            src={src}
-            width={50}
-            height={50}
-            alt={`AI generated avatar of ${props.name}`}
-        />
-    );
-};
-
-const AvatarPlaceholder = (props: { name: string }) => (
-    <Image
-        src={"/avatarPlaceholder.png"}
-        width={50}
-        height={50}
-        alt={`Generating avatar for ${props.name}`}
-    />
-);
-
 export default async function Home() {
     const feed = await arxiv.getFeed("cs");
-    const papers = feed.items.slice(0, 1);
-    console.log(feed.items.length);
+    const papers = feed.items.slice(0, 10);
 
     const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
         await Promise.all(
