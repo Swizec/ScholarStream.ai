@@ -18,6 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: -64px;
 }
 
 .pitch h1 img {
