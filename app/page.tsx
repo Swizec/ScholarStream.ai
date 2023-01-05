@@ -4,6 +4,7 @@ import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
 import { Avatar } from "./Avatar";
+import Image from "next/image";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -57,7 +58,15 @@ const Feed = async (props: { topic: string }) => {
 
 const Pitch = () => (
     <div className={styles.pitch}>
-        <h1>ScholarStream.ai</h1>
+        <h1>
+            <Image
+                src="/logo.png"
+                alt="ScholarStream.ai logo"
+                width={64}
+                height={64}
+            />
+            ScholarStream.ai
+        </h1>
         <p>Welcome to the world of academic insights!</p>
         <p>
             Are you tired of the shallow and attention-seeking content on social

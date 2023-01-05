@@ -15,6 +15,13 @@
 
 .pitch h1 {
     font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pitch h1 img {
+    margin-right: 1rem;
 }
 
 .pitch p {
