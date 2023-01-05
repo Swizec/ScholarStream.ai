@@ -61,7 +61,7 @@ export async function getAvatar(
             });
             imageData = response.data;
         } catch (e) {
-            console.log(e);
+            console.error(e);
             throw new Error("Image generation failed");
         }
 

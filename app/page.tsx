@@ -3,7 +3,8 @@ import styles from "@/styles/Home.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -18,9 +19,14 @@ const FeedItem = (props: {
     return (
         <div key={summary.id} style={{ marginBottom: "1em" }}>
             {creators.map((name) => (
-                <Suspense fallback={<>L</>} key={name}>
-                    {/* @ts-expect-error Server Component */}
-                    <Avatar name={name} />
+                <Suspense
+                    fallback={<AvatarPlaceholder name={name} />}
+                    key={name}
+                >
+                    <ErrorBoundary fallback={<AvatarPlaceholder name={name} />}>
+                        {/* @ts-expect-error Server Component */}
+                        <Avatar name={name} />
+                    </ErrorBoundary>
                 </Suspense>
             ))}
             <h3
@@ -37,13 +43,9 @@ const FeedItem = (props: {
 };
 
 const Avatar = async (props: { name: string }) => {
-    let src: string;
-    try {
-        src = await openai.getAvatar(props.name, "256");
-    } catch (e) {
-        console.error(e);
-        return <></>;
-    }
+    let src = await cache(async (name: string) =>
+        openai.getAvatar(name, "256")
+    )(props.name);
 
     return (
         <Image
@@ -55,9 +57,18 @@ const Avatar = async (props: { name: string }) => {
     );
 };
 
+const AvatarPlaceholder = (props: { name: string }) => (
+    <Image
+        src={"/avatarPlaceholder.png"}
+        width={50}
+        height={50}
+        alt={`Generating avatar for ${props.name}`}
+    />
+);
+
 export default async function Home() {
     const feed = await arxiv.getFeed("cs");
-    const papers = feed.items.slice(0, 5);
+    const papers = feed.items.slice(0, 1);
     console.log(feed.items.length);
 
     const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
