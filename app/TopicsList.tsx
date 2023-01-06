@@ -16,7 +16,7 @@ const topics = [
     { link: "q-bio", label: "Quantitative Biology" },
     { link: "q-fin", label: "Quantitative Finance" },
     { link: "stat", label: "Statistics" },
-    { link: "eess", label: "Elextrical Engineering and Systems Science" },
+    { link: "eess", label: "Electrical Engineering and Systems Science" },
     { link: "econ", label: "Economics" },
 ];
 

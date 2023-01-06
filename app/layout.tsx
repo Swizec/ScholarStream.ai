@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import Script from "next/script";
+import styles from "@/styles/Home.module.css";
 
 export default function RootLayout({
     // Layouts must accept a children prop.
@@ -14,7 +15,13 @@ export default function RootLayout({
                 src="https://plausible.io/js/script.js"
                 data-domain="scholarstream.ai"
             />
-            <body>{children}</body>
+            <body>
+                {children}
+                <div className={styles.footer}>
+                    built with reckless abandon by{" "}
+                    <a href="https://swizec.com">Swizec</a>
+                </div>
+            </body>
         </html>
     );
 }

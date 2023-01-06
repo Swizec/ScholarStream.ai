@@ -9,6 +9,14 @@
   font-family: var(--font-body);
 }
 
+.footer {
+  max-width: var(--max-width);
+  font-family: var(--font-body);
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
 .pitch {
     text-align: center;
     max-width: var(--max-width);
@@ -18,13 +26,14 @@
 
 .pitch h1 {
     font-size: 4em;
-    margin-left: -64px;
+    margin-left: -64px;  
 }
 
 .pitch h1, .pitch h1 a {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: inherit;
 }
 
 .pitch h1 img {
@@ -40,12 +49,7 @@
     font-size: 0.9em;
 }
 
-.pitch p a {
-    color: blue;
-}
-
 .topicList a {
-    color: blue;
     display: inline-block;
     margin-right: 0.4rem;
 }
