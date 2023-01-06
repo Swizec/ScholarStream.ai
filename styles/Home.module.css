@@ -4,6 +4,7 @@
   align-items: center;
   margin: 0 auto;
   padding: 6rem;
+  padding-top: 4rem;
   min-height: 100vh;
   max-width: var(--max-width);
   font-family: var(--font-body);
@@ -15,6 +16,19 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
+}
+
+.topNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    font-family: var(--font-body);
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.topNav a {
+    padding: 1rem;
 }
 
 .pitch {
@@ -40,7 +54,7 @@
     margin-right: 1rem;
 }
 
-.pitch p {
+.pitch p, .about p {
     margin-bottom: 1rem;
     font-size: 1.2em;
 }

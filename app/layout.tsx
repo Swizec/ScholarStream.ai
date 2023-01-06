@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Script from "next/script";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 export default function RootLayout({
     // Layouts must accept a children prop.
@@ -16,6 +17,9 @@ export default function RootLayout({
                 data-domain="scholarstream.ai"
             />
             <body>
+                <nav className={styles.topNav}>
+                    <Link href="/about">About</Link>
+                </nav>
                 {children}
                 <div className={styles.footer}>
                     built with reckless abandon by{" "}
