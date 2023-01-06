@@ -8,7 +8,6 @@ export default async function Category({
 }) {
     return (
         <main className={styles.main}>
-            {/* @ts-expect-error Server Component */}
             <Feed topic={params.topic} />
         </main>
     );

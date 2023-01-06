@@ -25,7 +25,10 @@ export async function getFeed(
         next: { revalidate: TEN_HOURS },
     }).then((r) => r.text());
 
-    const parsed = await parser.parseString(feed);
-
-    return parsed;
+    try {
+        const parsed = await parser.parseString(feed);
+        return parsed;
+    } catch (e) {
+        throw new Error("Could not parse feed");
+    }
 }

@@ -1,7 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import { Feed } from "./Feed";
+import { TopicsList } from "./TopicsList";
 
 const Pitch = () => (
     <div className={styles.pitch}>
@@ -39,38 +39,13 @@ const Pitch = () => (
 );
 
 export default async function Home() {
-    const topics = [
-        { link: "astro-ph", label: "Astrophysics" },
-        { link: "cond-mat", label: "Condensed matter" },
-        { link: "gr-qc", label: "General Relativity and Quantum Cosmology" },
-        { link: "math-ph", label: "Mathematical Physics" },
-        { link: "nucl-ex", label: "Nuclear Experiment" },
-        { link: "nucl-th", label: "Nuclear Theory" },
-        { link: "physics", label: "Physics" },
-        { link: "quant-ph", label: "Quantum Physics" },
-        { link: "nlin", label: "Nonlinear Sciences" },
-        { link: "math", label: "Mathematics" },
-        { link: "cs", label: "Computer Science" },
-        { link: "q-bio", label: "Quantitative Biology" },
-        { link: "q-fin", label: "Quantitative Finance" },
-        { link: "stat", label: "Statistics" },
-        { link: "eess", label: "Elextrical Engineering and Systems Science" },
-        { link: "econ", label: "Economics" },
-    ];
     return (
         <main className={styles.main}>
             <Pitch />
 
-            <h2>Learn about:</h2>
-            <p className={styles.topicList}>
-                {topics.map(({ link, label }) => (
-                    <Link href={`/${link}`} key={link}>
-                        {label}
-                    </Link>
-                ))}
-            </p>
+            <h2>Read about:</h2>
+            <TopicsList />
 
-            {/* @ts-expect-error Server Component */}
             <Feed topic="cs.AI" count={5} />
         </main>
     );
