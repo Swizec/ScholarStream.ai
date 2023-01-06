@@ -24,6 +24,9 @@ export default function RootLayout({
                 <div className={styles.footer}>
                     built with reckless abandon by{" "}
                     <a href="https://swizec.com">Swizec</a>
+                    <br />
+                    Thank you to arXiv for use of its open access
+                    interoperability.
                 </div>
             </body>
         </html>
