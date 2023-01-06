@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import Script from "next/script";
 
 export default function RootLayout({
     // Layouts must accept a children prop.
@@ -9,6 +10,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
+            <Script
+                src="https://plausible.io/js/script.js"
+                data-domain="scholarstream.ai"
+            />
             <body>{children}</body>
         </html>
     );
