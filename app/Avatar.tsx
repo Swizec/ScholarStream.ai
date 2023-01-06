@@ -12,29 +12,32 @@ export const Avatar = (props: AvatarProps) => {
     const { name } = props;
     return (
         <Suspense fallback={<AvatarPlaceholder name={name} />}>
-            <ErrorBoundary fallback={<AvatarError name={name} />}>
-                {/* @ts-expect-error Server Component */}
-                <AvatarImage name={name} />
-            </ErrorBoundary>
+            {/* @ts-expect-error Server Component */}
+            <AvatarImage name={name} />
         </Suspense>
     );
 };
 
 const AvatarImage = async (props: AvatarProps) => {
-    let src = await cache(async (name: string) =>
-        openai.getAvatar(name, "256")
-    )(props.name);
+    try {
+        let src = await cache(async (name: string) =>
+            openai.getAvatar(name, "256")
+        )(props.name);
 
-    return (
-        <Image
-            src={src}
-            width={50}
-            height={50}
-            alt={`AI generated avatar of ${props.name}`}
-            title={`AI generated avatar of ${props.name}`}
-            className={feedStyles.avatar}
-        />
-    );
+        return (
+            <Image
+                src={src}
+                width={50}
+                height={50}
+                alt={`AI generated avatar of ${props.name}`}
+                title={`AI generated avatar of ${props.name}`}
+                className={feedStyles.avatar}
+            />
+        );
+    } catch (e) {
+        console.error(e);
+        return <AvatarError name={props.name} />;
+    }
 };
 
 const AvatarPlaceholder = (props: AvatarProps) => (

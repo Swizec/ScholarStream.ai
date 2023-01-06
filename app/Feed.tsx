@@ -5,7 +5,6 @@ import { CreateCompletionResponse } from "openai";
 import { Avatar } from "./Avatar";
 import { Suspense } from "react";
 import { RingLoader } from "react-spinners";
-import { ErrorBoundary } from "./ErrorBoundary";
 import { TopicsList } from "./TopicsList";
 
 const FeedItem = (props: {
