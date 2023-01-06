@@ -111,8 +111,8 @@ export default function About() {
                     </blockquote>
                     <p>&nbsp;</p>
                     <p>
-                        Yep, I for one am going to find more interesting papers
-                        this way 😍
+                        Yep, I am going to find way more interesting papers this
+                        way 😍
                     </p>
                     <h2>What the AI is doing</h2>
                     <p>
