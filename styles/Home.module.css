@@ -36,6 +36,10 @@
     font-size: 1.2em;
 }
 
+.pitch p.footnote {
+    font-size: 0.9em;
+}
+
 .pitch p a {
     color: blue;
 }
