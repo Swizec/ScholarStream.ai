@@ -23,9 +23,12 @@ export async function getFeed(category: string): Promise<ArxivFeed> {
         Omit<ArxivFeed, "items">,
         ArxivFeedItem
     > = new Parser();
-    const feed = await fetch(`http://arxiv.org/rss/${category}?version=1.0`, {
-        next: { revalidate: TEN_HOURS },
-    }).then((r) => r.text());
+    const feed = await fetch(
+        `http://export.arxiv.org/rss/${category}?version=1.0`,
+        {
+            next: { revalidate: TEN_HOURS },
+        }
+    ).then((r) => r.text());
 
     try {
         const parsed = await parser.parseString(feed);
