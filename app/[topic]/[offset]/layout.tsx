@@ -10,6 +10,7 @@ export default async function CategoryPageLayout(props: {
 
     return (
         <>
+            {/* @ts-expect-error Server Component */}
             <Feed topic={props.params.topic} count={offset} />
             <div className={feedStyles.feed}>{props.children}</div>
         </>
