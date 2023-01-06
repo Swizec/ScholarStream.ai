@@ -6,6 +6,7 @@ import { Avatar } from "./Avatar";
 import { Suspense } from "react";
 import { RingLoader } from "react-spinners";
 import { TopicsList } from "./TopicsList";
+import Link from "next/link";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -47,31 +48,25 @@ export const FeedLoader = () => {
     );
 };
 
-type FeedProps = { topic: string; count?: number };
+type FeedProps = {
+    topic: string;
+    count?: number;
+    offset?: number;
+    isLast?: boolean;
+};
 
-const FeedInnards = async (props: FeedProps) => {
+export const FeedInnards = async (props: FeedProps) => {
+    const { offset = 0, count = 10 } = props;
+
+    let feed: arxiv.ArxivFeed;
+    let summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][];
+
     try {
-        const feed = await arxiv.getFeed(props.topic);
-        const papers = feed.items.slice(0, props.count || 10);
+        feed = await arxiv.getFeed(props.topic);
+        const papers = feed.items.slice(offset, count);
 
-        const summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][] =
-            await Promise.all(
-                papers.map(async (paper) => [
-                    paper,
-                    await openai.getSummary(paper),
-                ])
-            );
-
-        return (
-            <>
-                {summaries.map(([paper, summary]) => (
-                    <FeedItem
-                        paper={paper}
-                        summary={summary}
-                        key={summary.id}
-                    />
-                ))}
-            </>
+        summaries = await Promise.all(
+            papers.map(async (paper) => [paper, await openai.getSummary(paper)])
         );
     } catch (e) {
         console.error(e);
@@ -83,6 +78,26 @@ const FeedInnards = async (props: FeedProps) => {
             </>
         );
     }
+
+    const canShowMore = props.isLast && feed.items.length > offset + count;
+
+    return (
+        <>
+            {summaries.map(([paper, summary]) => (
+                <FeedItem paper={paper} summary={summary} key={summary.id} />
+            ))}
+            {canShowMore ? (
+                <div className={feedStyles.showMore}>
+                    <p>
+                        Showing {offset + count} of {feed.items.length}
+                    </p>
+                    <Link href={`/${props.topic}/${offset + count}`}>
+                        Show more
+                    </Link>
+                </div>
+            ) : null}
+        </>
+    );
 };
 
 export const Feed = (props: FeedProps) => {

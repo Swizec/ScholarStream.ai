@@ -51,7 +51,7 @@ export default async function Home() {
             <h2>Read about:</h2>
             <TopicsList />
 
-            <Feed topic="cs.AI" count={5} />
+            <Feed topic="cs.AI" count={5} isLast />
         </main>
     );
 }

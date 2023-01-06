@@ -42,6 +42,19 @@
     margin-top: 1rem;
 }
 
+.showMore {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.showMore a {
+    padding: .5rem;
+    font-size: .8em;
+    margin: 0.5rem;
+    cursor: pointer;
+    color: blue;
+}
+
 .avatar {
     border-radius: 100%;
     margin-right: -20px;

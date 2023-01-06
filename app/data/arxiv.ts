@@ -2,11 +2,12 @@ import Parser from "rss-parser";
 
 const TEN_HOURS = 10 * 60 * 60;
 
-type ArxivFeed = {
+export type ArxivFeed = {
     publisher: string;
     title: string;
     description: string;
     link: string;
+    items: ArxivFeedItem[];
 };
 
 export type ArxivFeedItem = {
@@ -17,10 +18,11 @@ export type ArxivFeedItem = {
     contentSnippet: string;
 };
 
-export async function getFeed(
-    category: string
-): Promise<ArxivFeed & { items: ArxivFeedItem[] }> {
-    const parser: Parser<ArxivFeed, ArxivFeedItem> = new Parser();
+export async function getFeed(category: string): Promise<ArxivFeed> {
+    const parser: Parser<
+        Omit<ArxivFeed, "items">,
+        ArxivFeedItem
+    > = new Parser();
     const feed = await fetch(`http://arxiv.org/rss/${category}?version=1.0`, {
         next: { revalidate: TEN_HOURS },
     }).then((r) => r.text());
