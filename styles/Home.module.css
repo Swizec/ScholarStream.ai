@@ -11,14 +11,20 @@
 
 .pitch {
     text-align: center;
+    max-width: var(--max-width);
+    font-family: var(--font-body);
+    margin: 0 auto;
 }
 
 .pitch h1 {
     font-size: 4em;
+    margin-left: -64px;
+}
+
+.pitch h1, .pitch h1 a {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -64px;
 }
 
 .pitch h1 img {
@@ -28,6 +34,10 @@
 .pitch p {
     margin-bottom: 1rem;
     font-size: 1.2em;
+}
+
+.pitch p a {
+    color: blue;
 }
 
 .topicList a {
