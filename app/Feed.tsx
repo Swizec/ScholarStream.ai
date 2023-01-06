@@ -108,7 +108,7 @@ export const FeedInnards = async (props: FeedProps) => {
     );
 };
 
-export const Feed = (props: FeedProps) => {
+export const Feed = async (props: FeedProps) => {
     return (
         <div className={feedStyles.feed}>
             <h1>Latest {props.topic} papers</h1>
