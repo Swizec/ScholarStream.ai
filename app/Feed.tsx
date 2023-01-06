@@ -3,6 +3,8 @@ import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
 import { CreateCompletionResponse } from "openai";
 import { Avatar } from "./Avatar";
+import { Suspense } from "react";
+import { RingLoader } from "react-spinners";
 
 const FeedItem = (props: {
     paper: arxiv.ArxivFeedItem;
@@ -35,6 +37,15 @@ const FeedItem = (props: {
     );
 };
 
+export const FeedLoader = () => {
+    return (
+        <div className={feedStyles.loader}>
+            <RingLoader color="blue" loading />
+            <p>Loading ...</p>
+        </div>
+    );
+};
+
 export const Feed = async (props: { topic: string; count?: number }) => {
     const feed = await arxiv.getFeed(props.topic);
     const papers = feed.items.slice(0, props.count || 10);
@@ -47,9 +58,15 @@ export const Feed = async (props: { topic: string; count?: number }) => {
     return (
         <div className={feedStyles.feed}>
             <h1>Latest {props.topic} papers</h1>
-            {summaries.map(([paper, summary]) => (
-                <FeedItem paper={paper} summary={summary} key={summary.id} />
-            ))}
+            <Suspense fallback={<FeedLoader />}>
+                {summaries.map(([paper, summary]) => (
+                    <FeedItem
+                        paper={paper}
+                        summary={summary}
+                        key={summary.id}
+                    />
+                ))}
+            </Suspense>
         </div>
     );
 };

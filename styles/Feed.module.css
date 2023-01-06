@@ -23,6 +23,19 @@
     font-size: 1.1em;
 }
 
+.loader {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.loader p {
+    margin-top: 1rem;
+}
+
 .avatar {
     border-radius: 100%;
     margin-right: -20px;
