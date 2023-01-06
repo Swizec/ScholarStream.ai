@@ -56,6 +56,7 @@ export default async function Home() {
             <h2>Read about:</h2>
             <TopicsList />
 
+            {/* @ts-expect-error Server Component */}
             <Feed topic="cs.AI" count={5} isLast />
         </main>
     );
