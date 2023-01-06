@@ -18,11 +18,11 @@ export const Avatar = (props: AvatarProps) => {
     );
 };
 
+const getAvatar = cache(async (name: string) => openai.getAvatar(name, "256"));
+
 const AvatarImage = async (props: AvatarProps) => {
     try {
-        let src = await cache(async (name: string) =>
-            openai.getAvatar(name, "256")
-        )(props.name);
+        let src = await getAvatar(props.name);
 
         return (
             <Image

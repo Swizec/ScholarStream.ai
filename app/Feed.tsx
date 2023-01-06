@@ -1,25 +1,33 @@
 import feedStyles from "@/styles/Feed.module.css";
 import * as arxiv from "./data/arxiv";
 import * as openai from "./data/openai";
-import { CreateCompletionResponse } from "openai";
 import { Avatar } from "./Avatar";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
 import { RingLoader } from "react-spinners";
 import { TopicsList } from "./TopicsList";
 import Link from "next/link";
 
-const FeedItem = (props: {
-    paper: arxiv.ArxivFeedItem;
-    summary: CreateCompletionResponse;
-}) => {
-    const { paper, summary } = props;
+const getSummary = cache(async (paper: arxiv.ArxivFeedItem) => {
+    const summary = await openai.getSummary(paper);
+    return summary;
+});
+
+const PaperSummary = async (props: { paper: arxiv.ArxivFeedItem }) => {
+    const summary = await getSummary(props.paper);
+
+    return <p>{summary.choices[0].text}</p>;
+};
+
+const FeedItem = async (props: { paper: arxiv.ArxivFeedItem }) => {
+    const { paper } = props;
+
     const creators = paper.creator
         .replace(/<[^>]*>?/gm, "")
         .split(",")
         .map((s) => s.trim());
 
     return (
-        <div key={summary.id} className={feedStyles.item}>
+        <div className={feedStyles.item}>
             {creators.map((name) => (
                 <Avatar name={name} key={name} />
             ))}
@@ -28,7 +36,10 @@ const FeedItem = (props: {
                     __html: creators.join(", "),
                 }}
             />
-            <p>{summary.choices[0].text}</p>
+            <Suspense fallback={<RingLoader color="blue" loading />}>
+                {/* @ts-expect-error Server Component */}
+                <PaperSummary paper={paper} />
+            </Suspense>
             <div>
                 Full paper at 👉{" "}
                 <a href={paper.link} className={feedStyles.linkPaper}>
@@ -59,15 +70,11 @@ export const FeedInnards = async (props: FeedProps) => {
     const { offset = 0, count = 10 } = props;
 
     let feed: arxiv.ArxivFeed;
-    let summaries: [arxiv.ArxivFeedItem, CreateCompletionResponse][];
+    let papers: arxiv.ArxivFeedItem[];
 
     try {
         feed = await arxiv.getFeed(props.topic);
-        const papers = feed.items.slice(offset, count);
-
-        summaries = await Promise.all(
-            papers.map(async (paper) => [paper, await openai.getSummary(paper)])
-        );
+        papers = feed.items.slice(offset, count);
     } catch (e) {
         console.error(e);
 
@@ -83,8 +90,9 @@ export const FeedInnards = async (props: FeedProps) => {
 
     return (
         <>
-            {summaries.map(([paper, summary]) => (
-                <FeedItem paper={paper} summary={summary} key={summary.id} />
+            {papers.map((paper) => (
+                // @ts-expect-error Server Component
+                <FeedItem paper={paper} key={paper.link} />
             ))}
             {canShowMore ? (
                 <div className={feedStyles.showMore}>
