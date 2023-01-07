@@ -6,5 +6,5 @@ export default async function Category({
     params: { topic: string };
 }) {
     // @ts-expect-error Server Component
-    return <Feed topic={params.topic} />;
+    return <Feed topic={params.topic} isLast />;
 }
