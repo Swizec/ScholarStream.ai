@@ -35,6 +35,13 @@ const Pitch = () => (
             AI does the work for you, presenting you with the latest information
             in an easily digestible format.
         </p>
+
+        <a
+            href="https://swizec.lemonsqueezy.com/checkout/buy/5a9793c6-9803-49cd-87a4-4c0c0e6c5347?embed=1&media=0&discount=0"
+            className={`lemonsqueezy-button, ${styles.buyButton}`}
+        >
+            Get daily email digest for $5/mo
+        </a>
         <p>
             Explore the depths of knowledge today with{" "}
             <a href="/">ScholarStream.ai</a>.<br /> Your mind will thank you!

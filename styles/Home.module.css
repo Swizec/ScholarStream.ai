@@ -63,6 +63,29 @@
     font-size: 0.9em;
 }
 
+.buyButton {
+    background: rgb(112, 71, 235);
+    display: inline-block;
+    justify-content: center;
+    color: inherit;
+    font-weight: 600;
+    font-size: 1.2em;
+    padding: .6rem 5rem;
+    border-radius: 50px;
+    color: white;
+    margin: 1.3rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+     letter-spacing: 1.2px;
+}
+
+.buyButton:hover {
+  filter: brightness(1.55);
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
 .topicList a {
     display: inline-block;
     margin-right: 0.4rem;
