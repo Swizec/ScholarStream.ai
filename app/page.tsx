@@ -1,6 +1,7 @@
 import styles from "@/styles/Home.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { BuyButton } from "./BuyButton";
 import { Feed } from "./Feed";
 import { TopicsList } from "./TopicsList";
 
@@ -35,17 +36,7 @@ const Pitch = () => (
             AI does the work for you, presenting you with the latest information
             in an easily digestible format.
         </p>
-
-        <a
-            href="https://scholarstream.lemonsqueezy.com/checkout/buy/bf4997b5-bfea-44ec-9b77-22889d989ff2?embed=1"
-            onClick={() =>
-                // @ts-ignore
-                window.plausible && window.plausible("Purchase Button Clicked")
-            }
-            className={`lemonsqueezy-button ${styles.buyButton}`}
-        >
-            Get a daily email digest for $5/mo
-        </a>
+        <BuyButton />
         <p>
             Explore the depths of knowledge today with{" "}
             <a href="/">ScholarStream.ai</a>.<br /> Your mind will thank you!

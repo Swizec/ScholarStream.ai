@@ -16,10 +16,6 @@ export default function RootLayout({
                 src="https://plausible.io/js/script.js"
                 data-domain="scholarstream.ai"
             />
-            <Script
-                src="https://app.lemonsqueezy.com/js/lemon.js"
-                strategy="lazyOnload"
-            />
             <body>
                 <nav className={styles.topNav}>
                     <Link href="/about">About</Link>
