@@ -37,10 +37,14 @@ const Pitch = () => (
         </p>
 
         <a
-            href="https://swizec.lemonsqueezy.com/checkout/buy/5a9793c6-9803-49cd-87a4-4c0c0e6c5347?embed=1&media=0&discount=0"
-            className={`lemonsqueezy-button, ${styles.buyButton}`}
+            href="https://scholarstream.lemonsqueezy.com/checkout/buy/bf4997b5-bfea-44ec-9b77-22889d989ff2?embed=1"
+            onClick={() =>
+                // @ts-ignore
+                window.plausible && window.plausible("Purchase Button Clicked")
+            }
+            className={`lemonsqueezy-button ${styles.buyButton}`}
         >
-            Get daily email digest for $5/mo
+            Get a daily email digest for $5/mo
         </a>
         <p>
             Explore the depths of knowledge today with{" "}

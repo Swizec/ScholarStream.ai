@@ -63,29 +63,6 @@
     font-size: 0.9em;
 }
 
-.buyButton {
-    background: rgb(112, 71, 235);
-    display: inline-block;
-    justify-content: center;
-    color: inherit;
-    font-weight: 600;
-    font-size: 1.2em;
-    padding: .6rem 5rem;
-    border-radius: 50px;
-    color: white;
-    margin: 1.3rem;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-     letter-spacing: 1.2px;
-}
-
-.buyButton:hover {
-  filter: brightness(1.55);
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-
 .topicList a {
     display: inline-block;
     margin-right: 0.4rem;
@@ -102,6 +79,61 @@
 .code {
   font-weight: 700;
   font-family: var(--font-mono);
+}
+
+.buyButton {
+  align-items: center;
+  appearance: button;
+  -webkit-appearance: button;
+  background-color: rgb(112, 71, 235);
+  background-image: none;
+  border: rgb(229, 231, 235) solid 0px;
+  border-radius: 8px;
+  border-image-outset: 0;
+  border-image-repeat: stretch;
+  border-image-source: none;
+  border-image-width: 1;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 20px;
+  font-stretch: 100%;
+  font-variant-caps: normal;
+  font-variant-east-asian: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 35px;
+  margin: 1.5rem;
+  max-width: 100%;
+  min-width: 300px;
+  padding: 10px 16px;
+  tab-size: 4;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-size-adjust: 100%;
+  word-spacing: 0px;
+  -webkit-font-smoothing: antialiased;
+  writing-mode: horizontal-tb;
+  border-image: none;
+  -webkit-border-image: none;
+}
+
+.buyButton:hover {
+  filter: brightness(1.55);
+}
+
+.buyButton span {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
 }
 
 /* Enable hover only on non-touch devices */
