@@ -113,10 +113,12 @@ export const Feed = async (props: FeedProps) => {
         <div className={feedStyles.feed}>
             <h1>Latest {props.topic} papers</h1>
 
-            <Suspense fallback={<FeedLoader />}>
-                {/* @ts-expect-error Server Component */}
-                <FeedInnards {...props} />
-            </Suspense>
+            <p>Sorry, had to turn this off due to API cost</p>
         </div>
     );
 };
+
+//  <Suspense fallback={<FeedLoader />}>
+//      {/* @ts-expect-error Server Component */}
+//      <FeedInnards {...props} />
+//  </Suspense>;
